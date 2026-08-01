@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Friendship Day 💖</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.card{
+    width:90%;
+    max-width:400px;
+    background:white;
+    padding:30px 20px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 20px 40px rgba(0,0,0,0.2);
+    animation:pop 1s ease;
+}
+
+@keyframes pop{
+    from{
+        transform:scale(0);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+h1{
+    color:#ff4b91;
+    font-size:32px;
+}
+
+.name{
+    color:#667eea;
+    font-size:28px;
+    font-weight:bold;
+    margin:15px 0;
+}
+
+p{
+    color:#555;
+    line-height:1.6;
+    font-size:16px;
+}
+
+.emoji{
+    font-size:50px;
+    animation:float 2s infinite;
+}
+
+@keyframes float{
+    50%{
+        transform:translateY(-15px);
+    }
+}
+
+button{
+    margin-top:25px;
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    background:#ff4b91;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#ff2675;
+}
+
+#message{
+    display:none;
+    margin-top:20px;
+    animation:fade 1s;
+}
+
+@keyframes fade{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    pointer-events:none;
+}
+</style>
+
+</head>
+
+<body>
+
+<canvas id="confetti"></canvas>
+
+<div class="card">
+
+<div class="emoji">🤝💖</div>
+
+<h1>Happy Friendship Day</h1>
+
+<div class="name">
+Nishiii ✨
+</div>
+
+<p>
+Some people enter our life and make ordinary moments special.
+Thank you for being an amazing friend and for all the memories.
+</p>
+
+<button onclick="showMessage()">
+Click Me 💌
+</button>
+
+<div id="message">
+"You are not just a friend, you are a beautiful part of my journey ❤️"
+<br><br>
+— Ajith
+</div>
+
+</div>
+
+
+<script>
+
+// Message reveal
+function showMessage(){
+    document.getElementById("message").style.display="block";
+    startConfetti();
+}
+
+
+// Confetti Animation
+
+const canvas=document.getElementById("confetti");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let pieces=[];
+
+function startConfetti(){
+
+    pieces=[];
+
+    for(let i=0;i<150;i++){
+        pieces.push({
+            x:Math.random()*canvas.width,
+            y:Math.random()*canvas.height- canvas.height,
+            size:Math.random()*8+5,
+            speed:Math.random()*3+2,
+            rotate:Math.random()*360
+        });
+    }
+
+    animate();
+}
+
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+pieces.forEach(p=>{
+
+ctx.save();
+
+ctx.translate(p.x,p.y);
+ctx.rotate(p.rotate);
+
+ctx.fillStyle=
+`hsl(${Math.random()*360},100%,50%)`;
+
+ctx.fillRect(
+0,
+0,
+p.size,
+p.size
+);
+
+ctx.restore();
+
+
+p.y+=p.speed;
+p.rotate+=5;
+
+
+if(p.y>canvas.height){
+p.y=-10;
+}
+
+});
+
+
+requestAnimationFrame(animate);
+
+}
+
+
+window.onresize=()=>{
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+}
+
+</script>
+
+</body>
+</html>
